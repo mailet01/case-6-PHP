@@ -1,5 +1,7 @@
 <?php 
 $title = "register";
+include_once "../_includes/database-connection.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,5 +21,9 @@ $title = "register";
 <button type="submit">Register</button>
 
 </form>
+<?php 
+
+
+?>
 </body>
 </html>
