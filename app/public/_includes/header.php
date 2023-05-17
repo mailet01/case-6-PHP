@@ -2,7 +2,7 @@
     Header...
 </header>
 
-<nav>
-    <a href="#">Start</a> | <a href="#">Logga in</a> | <a href="#">Logga ut</a> | <a href="template.php">Template</a>
+<nav
+    <a href="logout.php">logout</a> | <a href="login.php">login</a> | <a href="register.php">register</a> | <a href="books.php">bookreview</a>
 </nav>
 <hr>
