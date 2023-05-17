@@ -1,6 +1,6 @@
 <?php 
 $title = "register";
-include_once "../_includes/database-connection.php";
+include_once "_includes/database-connection.php";
 
 ?>
 <!DOCTYPE html>
