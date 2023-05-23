@@ -26,19 +26,20 @@ $form_username = $POST['username'];
 </head>
 
 <body>
-    <h1>Register</h1>
-
-
-    <?php
+<?php
     include "_includes/header.php";
 
     ?>
+        
+<h1>Register</h1>
+
+
     <form action="">
         <label for="username">username</label>
-        <input type="text" name="username" id="username" placeholder="username"> required
+        <input type="text" name="username" id="username" placeholder="username" required> 
 
         <label for="password">password</label>
-        <input type="password" name="password" id="password" placeholder="password"> required
+        <input type="password" name="password" id="password" placeholder="password" required> 
 
         <button type="submit">Register</button>
 

@@ -1,6 +1,6 @@
 <?php
 $title = "Login";
-include_once "_includes/database-connection.php";
+include "_includes/database-connection.php";
 session_start();
 setup_user($pdo);
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         }
         $_SESSION["username"] = $user["username"];
         $_SESSION["user_id"] = $user["id"];
-        header("location: bird.php");
+        header("location: books.php");
     } catch (PDOException $err) {
         echo "there was a problem during the registration:" . $err->getMessage();
     }
@@ -41,12 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 </head>
 
 <body>
-    <h1>Login</h1>
+<?php 
+include "_includes/header.php";
+?>    
+<h1>Login</h1>
     <form action="" method="post">
         <label for="username">username</label>
-        <input type="text" name="username" id="username">
+        <input type="text" name="username" id="username" required>
         <label for="password">password</label>
-        <input type="password" name="password" id="password">
+        <input type="password" name="password" id="password" required>
         <button type="submit">Login</button>
     </form>
 </body>
