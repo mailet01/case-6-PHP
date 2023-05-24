@@ -9,11 +9,11 @@ $author = "";
 $year_published = "";
 $review = "";
 
-session_start();
+
 
 
 setup_book($pdo);
-$title = "bookreview";
+$title = "bookreview - uppdate";
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $title = $_POST['title'];
@@ -22,11 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $review = $_POST['review'];
     
     $user_id = $_SESSION['user_id'];
-    $sql = "INSERT INTO book (title, author, year_published, review, user_id) VALUES ('$title', '$author', '$year_published', '$review', $user_id)";
+    $sql = "UPDATE `book` SET `book_id`='[value-1]',`title`='[value-2]',`author`='[value-3]',`year_published`='[value-4]',`review`='[value-5]',`date_create`='[value-6]',`user_id`='[value-7]";
     print_r($sql);
-    $sql = "SELECT * FROM book";
     $result = $pdo->exec($sql);
 print_r($result);
+$sql = "SELECT * FROM book";
+if ($result) {
+header("Location: books.php");
+exit;
+}
 }
 ?>
 
@@ -58,7 +62,7 @@ print_r($result);
         <label for="review">review</label>
         <textarea name="review" id="review" cols="30" rows="10" required></textarea>
 <input type="hidden" name="user_id" value="">
-        <button type="submit">save</button>
+        <button type="reset">uppdate</button>
         </p>
     </form>
 </body>

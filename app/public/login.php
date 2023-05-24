@@ -4,22 +4,26 @@ include "_includes/database-connection.php";
 session_start();
 setup_user($pdo);
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $form_username = $POST['username'];
-    $form_hasshed_password = password_hash($POST['password'], PASSWORD_DEFAULT);
+    $form_username = $_POST['username'];
+    $form_password = $_POST['password'];
     $sql_statement = "SELECT * FROM  user WHERE `username` = '$form_username'";
     try {
         $result = $pdo->query($sql_statement);
         $user = $result->fetch();
-        if ($user) {
+        if (!$user) {
             echo "there is no user";
+        } else {
+            $isCorrectPassword = password_verify($form_password, $user['password']);
+            if (!$isCorrectPassword) {
+                echo "incorrect password";
+            } else {
+                $_SESSION["username"] = $user["username"];
+                $_SESSION["user_id"] = $user["user_id"];
+                // header("location: books.php");
+            }
+            
         }
-        $isCorrectPassword = password_verify($form_password, $user['password']);
-        if ($isCorrectPassword) {
-            echo "incorrect password";
-        }
-        $_SESSION["username"] = $user["username"];
-        $_SESSION["user_id"] = $user["id"];
-        header("location: books.php");
+        
     } catch (PDOException $err) {
         echo "there was a problem during the registration:" . $err->getMessage();
     }
