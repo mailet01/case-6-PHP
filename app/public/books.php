@@ -8,7 +8,7 @@ $title = "";
 $author = "";
 $year_published = "";
 $review = "";
-
+$user_id = "";
 session_start();
 
 
@@ -20,13 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $author = $_POST['author'];
     $year_published = $_POST['year_published'];
     $review = $_POST['review'];
-    
     $user_id = $_SESSION['user_id'];
+
     $sql = "INSERT INTO book (title, author, year_published, review, user_id) VALUES ('$title', '$author', '$year_published', '$review', $user_id)";
     print_r($sql);
     $sql = "SELECT * FROM book";
     $result = $pdo->exec($sql);
-print_r($result);
+    print_r($result);
 }
 ?>
 
@@ -57,10 +57,13 @@ print_r($result);
         <input type="text" name="year_published" id="year_published" required>
         <label for="review">review</label>
         <textarea name="review" id="review" cols="30" rows="10" required></textarea>
-<input type="hidden" name="user_id" value="">
+        <input type="hidden" name="user_id" value="">
         <button type="submit">save</button>
         </p>
-    </form>
+
+
+
+
 </body>
 
 </html>
