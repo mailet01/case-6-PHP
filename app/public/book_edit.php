@@ -35,9 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     }
 }
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
-    $id = isset($_GET['id']) ? $_GET['id'] : 0;
+    $book_id = isset($_GET['book_id']) ? $_GET['book_id'] : 0;
 
-    $sql = "SELECT * FROM book";
+    $sql = "SELECT * FROM book WHERE book_id = $book_id";
     $result = $pdo->prepare($sql);
     $result->execute();
     $row = $result->fetch();
@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
         <label for="title">title</label>
+<label for=""></label>
         <input type="text" name="title" id="titel" required>
         <label for="author">author</label>
         <input type="text" name="author" id="author" required>

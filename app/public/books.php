@@ -24,9 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $sql = "INSERT INTO book (title, author, year_published, review, user_id) VALUES ('$title', '$author', '$year_published', '$review', $user_id)";
     print_r($sql);
-    $sql = "SELECT * FROM book";
+
     $result = $pdo->exec($sql);
+
     print_r($result);
+}
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    $sql = "SELECT * FROM book";
+    $result = $pdo->prepare($sql);
+    $result->execute();
+    $rows = $result->fetchAll();
+    
 }
 ?>
 
@@ -60,6 +68,20 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <input type="hidden" name="user_id" value="">
         <button type="submit">save</button>
         </p>
+<?php 
+echo "<ul>";
+foreach ($rows as $row) {
+echo '<li><a href="book_edit.php?book_id='. $row['book_id'] .'">';
+echo $row['title'] . ", ". $row['author'];
+echo "</a>";
+echo "</li>";
+
+}
+echo "</ul>";
+
+
+?>
+
 
 
 
