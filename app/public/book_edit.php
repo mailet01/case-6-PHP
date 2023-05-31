@@ -16,15 +16,15 @@ $row = null;
 setup_book($pdo);
 $title = "bookreview - uppdate";
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $id = isset($_POST['id']) ? $_POST['id'] : 0;
+    $book_id = isset($_POST['book_id']) ? $_POST['book_id'] : 0;
 
     $title = $_POST['title'];
     $author = $_POST['author'];
     $year_published = $_POST['year_published'];
     $review = $_POST['review'];
-    $user_id = $_SESSION['user-id'];
+    $user_id = $_SESSION['user_id'];
 
-    $sql = "UPDATE `book` SET `book_id`='[value-1]',`title`='[value-2]',`author`='[value-3]',`year_published`='[value-4]',`review`='[value-5]',`date_create`='[value-6]',`user_id`='[value-7]";
+    $sql = "UPDATE `book` SET `book_id`= '[value-1]',`title`='[value-2]',`author`='[value-3]',`year_published`='[value-4]',`review`='[value-5]',`date_create`='[value-6]',`user_id`='[value-7]' WHERE book_id = $book_id";
     print_r2($sql);
     $result = $pdo->exec($sql);
     print_r2($result);
@@ -49,6 +49,17 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $review = $row['review'];
     }
 }
+$action_delete = isset($_POST['delete']) ? true : false;
+if ($action_delete) {
+$sql = "DELETE FROM book WHERE book_id=$book_id";
+$result = $pdo->exec($sql);
+if ($result) {
+header("Location: books.php");
+exit;
+}
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -66,25 +77,37 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     include "_includes/header.php";
     ?>
     <h1>Bookreview</h1>
+<?php 
+if ($row) {
+
+?>
     <p>
         Write your book review by fill in this form bellow:
 
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+        
+
+        <input type="hidden" name="book_id" value="<?= $row['book_id'] ?>">
+
+
         <label for="title">title</label>
-<label for=""></label>
-        <input type="text" name="title" id="titel" required>
+        <input type="text" name="title" id="title" required value="<?=$title; ?>">
         <label for="author">author</label>
-        <input type="text" name="author" id="author" required>
+        <input type="text" name="author" id="author" required value="<?=$author; ?>">
         <label for="year_published">year_published</label>
-        <input type="text" name="year_published" id="year_published" required>
+        <input type="text" name="year_published" id="year_published" required value="<?=$year_published; ?>">
         <label for="review">review</label>
-        <textarea name="review" id="review" cols="30" rows="10" required></textarea>
+        <input type="text" name="review" id="review" required value="<?=$review; ?>">
+
+
         <input type="hidden" name="user_id" value="">
         <button type="submit">update</button>
         <button type="reset">delete</button>
         </p>
     </form>
-
+<?php 
+}
+?>
 
 
 

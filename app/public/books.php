@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $result = $pdo->prepare($sql);
     $result->execute();
     $rows = $result->fetchAll();
-    
 }
 ?>
 
@@ -56,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     <p>
         Write your book review by fill in this form bellow:
 
+
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
         <label for="title">title</label>
         <input type="text" name="title" id="titel" required>
@@ -68,19 +68,21 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         <input type="hidden" name="user_id" value="">
         <button type="submit">save</button>
         </p>
-<?php 
-echo "<ul>";
-foreach ($rows as $row) {
-echo '<li><a href="book_edit.php?book_id='. $row['book_id'] .'">';
-echo $row['title'] . ", ". $row['author'];
-echo "</a>";
-echo "</li>";
-
-}
-echo "</ul>";
+    </form>
 
 
-?>
+    <?php
+        echo "<ul>";
+        foreach ($rows as $row) {
+            echo '<li><a href="book_edit.php?book_id=' . $row['book_id'] . '">';
+            echo $row['title'] . ", " . $row['author'];
+            echo "</a>";
+            echo "</li>";
+        }
+        echo "</ul>";
+
+
+        ?>
 
 
 

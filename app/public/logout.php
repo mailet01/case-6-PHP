@@ -1,5 +1,10 @@
 <?php 
 $title = "logout";
+include "_includes/database-connection.php";
+session_start();
+session_destroy();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +16,16 @@ $title = "logout";
     <title><?= $title?></title>
 </head>
 <body>
-    
+<?php 
+include "_includes/header.php";
+
+?>    
+<h1><?= $title?></h1>
+<p>
+you have now loged out.
+<a href="login.php">click here to login again</a>
+
+</p>
+
 </body>
 </html>
