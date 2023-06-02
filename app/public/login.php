@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             } else {
                 $_SESSION["username"] = $user["username"];
                 $_SESSION["user_id"] = $user["user_id"];
-                // header("location: books.php");
+                header("location: books.php");
             }
             
         }
