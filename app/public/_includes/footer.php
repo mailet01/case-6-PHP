@@ -1,7 +1,7 @@
 <hr>
 <footer>
     
-    Footer...
+skapad av Emil Näslund
     <?= render_copyright() ?>
 
 </footer>

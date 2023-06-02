@@ -1,17 +1,19 @@
 <?php
 $title = "register";
-include_once "_includes/database-connection.php";
+include "_includes/global-functions.php";
+include "_includes/database-connection.php";
+
 session_start();
 setup_user($pdo);
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
 $form_username = $_POST['username'];
     $form_hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $sql_statement = "INSERT INTO user (`username`, `password`) VALUES ('$form_username', '$form_hashed_password')";
-    print_r($sql_statement);
+    // print_r($sql_statement);
     try {
         $result = $pdo->query($sql_statement);
-        print_r($result);
-        // header("Location: login.php?register=success");
+        // print_r($result);
+        header("Location: login.php?register=success");
     } catch (PDOException $err) {
         echo "there was a problem during the registration:" . $err->getMessage();
     }
@@ -50,6 +52,10 @@ $form_username = $_POST['username'];
     <?php 
     $sql = "SELECT * FROM book";
     ?>
+<?php 
+include "_includes/footer.php";
+
+?>
 </body>
 
 </html>

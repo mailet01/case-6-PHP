@@ -24,10 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $review = $_POST['review'];
     $user_id = $_SESSION['user_id'];
 
-    $sql = "UPDATE `book` SET `book_id`= '[value-1]',`title`='[value-2]',`author`='[value-3]',`year_published`='[value-4]',`review`='[value-5]',`date_create`='[value-6]',`user_id`='[value-7]' WHERE book_id = $book_id";
-    print_r2($sql);
+    $sql = "UPDATE `book` SET `title`='$title',`author`='$author',`year_published`='$year_published',`review`='$review',`user_id`=$user_id WHERE book_id = $book_id";
+    // print_r2($sql);
     $result = $pdo->exec($sql);
-    print_r2($result);
+    // print_r2($result);
 
     if ($result) {
         header("Location: books.php");
@@ -83,7 +83,9 @@ if ($row) {
 ?>
     <p>
         Write your book review by fill in this form bellow:
-
+<?php 
+if ($_SESSION['user_id']) {
+?>
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
         
 
@@ -102,14 +104,22 @@ if ($row) {
 
         <input type="hidden" name="user_id" value="">
         <button type="submit">update</button>
-        <button type="reset">delete</button>
+        <button name="delete" type="submit">delete</button>
         </p>
     </form>
-<?php 
+<?php
 }
 ?>
+<?php
+}
+?>
+<?php 
+include "_includes/footer.php";
 
-
+?>
+<?php 
+include "_includes/footer.php";
+?>
 
 
 

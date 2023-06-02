@@ -1,7 +1,14 @@
 <header>
-    Header...
+emils bookrecensionsapp
 <?php 
-print_r($_SESSION);
+if (isset($_SESSION['user_id'])) {
+$username = $_SESSION['username'];
+echo "inloggad: $username";
+}
+
+?>
+<?php 
+
 ?>
 
 

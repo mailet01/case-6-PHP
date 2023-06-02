@@ -1,5 +1,6 @@
 <?php
 $title = "Login";
+include "_includes/global-functions.php";
 include "_includes/database-connection.php";
 session_start();
 setup_user($pdo);
@@ -56,6 +57,9 @@ include "_includes/header.php";
         <input type="password" name="password" id="password" required>
         <button type="submit">Login</button>
     </form>
+<?php 
+include "_includes/footer.php";
+?>
 </body>
 
 </html>

@@ -55,7 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     <p>
         Write your book review by fill in this form bellow:
 
+        <?php
+        if (isset($_SESSION['user_id'])) {
 
+        ?>
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
         <label for="title">title</label>
         <input type="text" name="title" id="titel" required>
@@ -69,25 +72,68 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         <button type="submit">save</button>
         </p>
     </form>
-
-
-    <?php
-        echo "<ul>";
-        foreach ($rows as $row) {
-            echo '<li><a href="book_edit.php?book_id=' . $row['book_id'] . '">';
-            echo $row['title'] . ", " . $row['author'];
-            echo "</a>";
-            echo "</li>";
+<?php
         }
-        echo "</ul>";
+?>
+
+<?php
+echo "<ul>";
+foreach ($rows as $row) {
+    echo '<li><a href="book_edit.php?book_id=' . $row['book_id'] . '">';
+    echo $row['title'] . ", " . $row['author'];
+    echo "</a>";
+    echo "</li>";
+}
+echo "</ul>";
 
 
-        ?>
+?>
+<table>
+<tr>
+<th>boktitel</th>
+<th>författare</th>
+<th>utgivningsår</th>
+<th>recension</th>
+<th>redigera</th>
+</tr>
+<?php 
+foreach ($rows as $row) {
+    $book_id = $row['book_id'];
+    $title=$row['title'];
+    $author=$row['author'];
+    $year_published=$row['year_published'];
+    $review=$row['review'];
+
+?>
+
+<!-- resultat från databas -->
+<tr>
+<td><?= $title ?></td>
+<td><?= $author ?></td>
+<td><?= $year_published ?></td>
+<td><?= $review ?></td>
+<td>
+<?php 
+if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']) {
+
+?>
+<a href="book_edit.php?book_id=<?= $book_id ?>">redigera</a>
+<?php 
+}
+?>
+</td>
+</tr>
+<?php 
+}
+?>
+</table>
 
 
 
 
-
+<?php 
+include "_includes/footer.php";
+?>
 </body>
 
 </html>

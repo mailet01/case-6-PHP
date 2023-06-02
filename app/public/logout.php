@@ -1,8 +1,10 @@
 <?php 
 $title = "logout";
+include "_includes/global-functions.php";
 include "_includes/database-connection.php";
 session_start();
 session_destroy();
+$_SESSION = [];
 
 
 ?>
@@ -26,6 +28,9 @@ you have now loged out.
 <a href="login.php">click here to login again</a>
 
 </p>
+<?php 
+include "_includes/footer.php";
 
+?>
 </body>
 </html>
