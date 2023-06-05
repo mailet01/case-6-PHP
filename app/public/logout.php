@@ -1,8 +1,12 @@
 <?php 
 $title = "logout";
+// inkluderar global-functionfilen på logoutsidan
 include "_includes/global-functions.php";
+// inklude database-connection på logoutsidan.
 include "_includes/database-connection.php";
+// funktion för att logga ut
 session_start();
+// funktion för att logga ut
 session_destroy();
 $_SESSION = [];
 
@@ -19,6 +23,7 @@ $_SESSION = [];
 </head>
 <body>
 <?php 
+// inkluderar header på logoutsidan.
 include "_includes/header.php";
 
 ?>    
@@ -29,6 +34,7 @@ you have now loged out.
 
 </p>
 <?php 
+// inkluderar footer på logoutsidan.
 include "_includes/footer.php";
 
 ?>
