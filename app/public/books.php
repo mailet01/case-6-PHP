@@ -1,34 +1,43 @@
 <?php
 
 declare(strict_types=1);
+// inkluderar filen global-functions på min bokrecensionssida.
 include "_includes/global-functions.php";
+// inkluderar database-connection på min bokrecensionssida.
 include "_includes/database-connection.php";
+// förbereder variabler för bokrecensionsformuläret.
 $title = "";
 
 $author = "";
 $year_published = "";
 $review = "";
 $user_id = "";
+// funktion för att logga in
 session_start();
 
 
 setup_book($pdo);
 $title = "bookreview";
+// kontrollerar så att metoden post används.
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
+// talar om att variabler verkligen är post respektive session.
     $title = $_POST['title'];
     $author = $_POST['author'];
     $year_published = $_POST['year_published'];
     $review = $_POST['review'];
     $user_id = $_SESSION['user_id'];
 
+    // syntax för att lägga till böcker i tabellen.
     $sql = "INSERT INTO book (title, author, year_published, review, user_id) VALUES ('$title', '$author', '$year_published', '$review', $user_id)";
+// skriver ut resultatet i en array.
     print_r($sql);
 
     $result = $pdo->exec($sql);
 
     print_r($result);
 }
+// kör själva sql satsen.
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $sql = "SELECT * FROM book";
     $result = $pdo->prepare($sql);
@@ -49,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 <body>
     <?php
+// inkluderar header i min bokrecensionssida.
     include "_includes/header.php";
     ?>
     <h1>Bookreview</h1>
@@ -56,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         Write your book review by fill in this form bellow:
 
         <?php
+// kontrollerar så att en användare är inloggad för att kunna skriva en recension.
         if (isset($_SESSION['user_id'])) {
 
         ?>
@@ -97,6 +108,7 @@ echo "</ul>";
 <th>redigera</th>
 </tr>
 <?php 
+// itteration av resultatet från formuläret.
 foreach ($rows as $row) {
     $book_id = $row['book_id'];
     $title=$row['title'];
@@ -114,6 +126,7 @@ foreach ($rows as $row) {
 <td><?= $review ?></td>
 <td>
 <?php 
+// kontrollerar så att inloggad användare stämmer överens med hen som har skrivit recensionen.
 if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']) {
 
 ?>
@@ -132,6 +145,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $row['user_id']) {
 
 
 <?php 
+// inkluderar footer i min bookrecensionssida.
 include "_includes/footer.php";
 ?>
 </body>

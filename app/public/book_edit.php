@@ -1,9 +1,13 @@
 <?php
 
 declare(strict_types=1);
+// inkluderar global-functionfilen på min redigera sida.
 include "_includes/global-functions.php";
+// inkluderar database-connectionfilen på min redigera sida.
 include "_includes/database-connection.php";
+// funktion för att logga in
 session_start();
+// förbereder variabler som används vid formuläret.
 $title = "";
 
 $author = "";
@@ -15,7 +19,9 @@ $row = null;
 
 setup_book($pdo);
 $title = "bookreview - uppdate";
+// kontrollerar så att metoden post verkligen används.
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
+// talar om att variablerna i formuläret verkligen är post respektive session.
     $book_id = isset($_POST['book_id']) ? $_POST['book_id'] : 0;
 
     $title = $_POST['title'];
@@ -24,16 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $review = $_POST['review'];
     $user_id = $_SESSION['user_id'];
 
+// syntax för att uppdatera.
     $sql = "UPDATE `book` SET `title`='$title',`author`='$author',`year_published`='$year_published',`review`='$review',`user_id`=$user_id WHERE book_id = $book_id";
     // print_r2($sql);
     $result = $pdo->exec($sql);
     // print_r2($result);
-
+// om en post uppdateras
     if ($result) {
+// skickas man tillbaka till bokrecensionssidan.
         header("Location: books.php");
         exit;
     }
 }
+// metod för att redigera en post
 if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $book_id = isset($_GET['book_id']) ? $_GET['book_id'] : 0;
 
@@ -49,12 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
         $review = $row['review'];
     }
 }
+// funktion för att radera en post
 $action_delete = isset($_POST['delete']) ? true : false;
 if ($action_delete) {
-$sql = "DELETE FROM book WHERE book_id=$book_id";
+// syntax för att radera en post
+    $sql = "DELETE FROM book WHERE book_id=$book_id";
 $result = $pdo->exec($sql);
+// om en post raderas
 if ($result) {
-header("Location: books.php");
+// skickas tillbaka till bokrecensionssidan.
+    header("Location: books.php");
 exit;
 }
 
@@ -74,16 +87,19 @@ exit;
 
 <body>
     <?php
+// inkluderar header i min redigera sida.
     include "_includes/header.php";
     ?>
     <h1>Bookreview</h1>
 <?php 
+// kontrollerar om det finns en post som ska redigeras
 if ($row) {
 
 ?>
     <p>
         Write your book review by fill in this form bellow:
 <?php 
+// kontrollerar så att man är inloggad för att kunna skriva och redigera en post
 if ($_SESSION['user_id']) {
 ?>
     <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
@@ -114,6 +130,7 @@ if ($_SESSION['user_id']) {
 }
 ?>
 <?php 
+// inkluderar footer i min redigera sida.
 include "_includes/footer.php";
 
 ?>
