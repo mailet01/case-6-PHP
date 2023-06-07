@@ -36,7 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     print($result);
 }
 // kör själva sql satsen.
-if ($_SERVER['REQUEST_METHOD'] === "GET") {
+
+if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST") {
     $sql = "SELECT * FROM book";
     $result = $pdo->prepare($sql);
     $result->execute();

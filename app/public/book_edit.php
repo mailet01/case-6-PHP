@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $sql = "UPDATE `book` SET `title`='$title',`author`='$author',`year_published`='$year_published',`review`='$review',`user_id`=$user_id WHERE book_id = $book_id";
     // print_r2($sql);
     $result = $pdo->exec($sql);
-    // print($result);
+     print($result);
 // om en post uppdateras
     if ($result) {
 // skickas man tillbaka till bokrecensionssidan.
