@@ -9,7 +9,6 @@ include "_includes/database-connection.php";
 session_start();
 // förbereder variabler som används vid formuläret.
 $title = "";
-
 $author = "";
 $year_published = "";
 $review = "";
@@ -34,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $sql = "UPDATE `book` SET `title`='$title',`author`='$author',`year_published`='$year_published',`review`='$review',`user_id`=$user_id WHERE book_id = $book_id";
     // print_r2($sql);
     $result = $pdo->exec($sql);
-    // print_r2($result);
+    // print($result);
 // om en post uppdateras
     if ($result) {
 // skickas man tillbaka till bokrecensionssidan.
-        header("Location: books.php");
+        header("Location: books.php?book update successfully");
         exit;
     }
 }
@@ -51,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
     $result->execute();
     $row = $result->fetch();
     if ($row) {
-        print_r2($row);
+        print($row);
         $title = $row['title'];
         $author = $row['author'];
         $year_published = $row['year_published'];
@@ -67,7 +66,7 @@ $result = $pdo->exec($sql);
 // om en post raderas
 if ($result) {
 // skickas tillbaka till bokrecensionssidan.
-    header("Location: books.php");
+    header("Location: books.php?=the book deleted successfully");
 exit;
 }
 
@@ -108,19 +107,23 @@ if ($_SESSION['user_id']) {
         <input type="hidden" name="book_id" value="<?= $row['book_id'] ?>">
 
 
-        <label for="title">title</label>
+        <p> title
+        
         <input type="text" name="title" id="title" required value="<?=$title; ?>">
-        <label for="author">author</label>
+        </p>
+        <p> author
         <input type="text" name="author" id="author" required value="<?=$author; ?>">
-        <label for="year_published">year_published</label>
+        </p>
+        <p> year_published 
         <input type="text" name="year_published" id="year_published" required value="<?=$year_published; ?>">
-        <label for="review">review</label>
+        </p>
+        <p> review 
         <input type="text" name="review" id="review" required value="<?=$review; ?>">
-
+        </p>
 
         <input type="hidden" name="user_id" value="">
-        <button type="submit">update</button>
-        <button name="delete" type="submit">delete</button>
+        <button name="Update" type="submit">Update</button>
+        <button name="Delete" type="submit">Delete</button>
         </p>
     </form>
 <?php

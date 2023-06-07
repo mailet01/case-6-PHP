@@ -1,5 +1,5 @@
 <header>
-emils bookrecensionsapp
+emils bokrecensionsapp
 <?php 
 if (isset($_SESSION['user_id'])) {
 $username = $_SESSION['username'];

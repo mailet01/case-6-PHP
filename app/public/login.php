@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $_SESSION["username"] = $user["username"];
                 $_SESSION["user_id"] = $user["user_id"];
 // skickas vidare till bookrecensionssidan när man har loggat in.
-                header("location: books.php");
+                header("location: books.php?loggin successfully");
             }
             
         }
