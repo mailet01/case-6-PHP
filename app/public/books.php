@@ -99,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === "GET" || $_SERVER['REQUEST_METHOD'] === "POST
 
 <?php
 echo "<ul>";
+
 foreach ($rows as $row) {
     echo '<li><a href="book_edit.php?book_id=' . $row['book_id'] . '">';
     echo $row['title'] . ", " . $row['author'];
